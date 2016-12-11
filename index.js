@@ -12,14 +12,20 @@ if (!databaseUri) {
 }
 
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://nisarg259:kreative@ds129038.mlab.com:29038/heroku_5v94wr2k',
+  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'giFAVuFbI2YuF8Q56VqNkLMkBD1yagbX14Ulb2aL',
-  masterKey: process.env.MASTER_KEY || '2zWeMV16vph9E5Or97eaNMHcomBvKcnl46lvWI6n', //Add your master key here. Keep it secret!
+  appId: process.env.APP_ID || 'myAppId',
+  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-  fileKey: "c8986279-48fa-4ff1-8b9e-98f6b922ac58",
+  fileKey: process.env.FILE_KEY || 'myFileKey',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+  },
+  facebookAppIds: [process.env.FACEBOOK_APP_ID || "FACEBOOK APP ID"],
+  auth: {
+    facebook: {
+      appIds: process.env.FACEBOOK_APP_ID || "FACEBOOK APP ID"
+    }
   }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
