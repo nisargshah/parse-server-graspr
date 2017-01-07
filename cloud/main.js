@@ -81,9 +81,11 @@ Parse.Cloud.afterSave('Activity', function(request) {
   var toUser = request.object.get("toUser");
   if (!toUser) {
     throw "Undefined toUser. Skipping push for Activity " + request.object.get('type') + " : " + request.object.id;
+    return;
   }
   if (toUser.id == request.object.get('fromUser').id) {
     throw "Not creating push since activity created for the user itself.";
+    return;
   }
   var query = new Parse.Query(Parse.Installation);
   query.equalTo('user', toUser);
